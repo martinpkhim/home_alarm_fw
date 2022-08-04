@@ -100,6 +100,8 @@ void manager_task(void * params)
 
 				xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
 
+				vTaskDelay(pdMS_TO_TICKS(2000));
+
 				system_state = STATE_DISARMED;
 
 				break;
@@ -107,6 +109,9 @@ void manager_task(void * params)
 			case STATE_DISARMED:
 			{
 				/*Notify user of disarmed state, wait for arming*/
+				memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
+				memcpy(lcd_data.text, "DISARMED", 9);
+				xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
 
 				system_state = STATE_ARMED;
 
@@ -116,7 +121,7 @@ void manager_task(void * params)
 			{
 				/*Wait for IO event to signal alert or go back to disarmed state*/
 
-				system_state = STATE_ALERT;
+				//system_state = STATE_ALERT;
 
 				break;
 			}
