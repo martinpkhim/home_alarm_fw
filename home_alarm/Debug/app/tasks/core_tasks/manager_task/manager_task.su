@@ -1,0 +1,2 @@
+../app/tasks/core_tasks/manager_task/manager_task.c:42:6:manager_task	48	static
+../app/tasks/core_tasks/manager_task/manager_task.c:29:6:manager_task_create	16	static

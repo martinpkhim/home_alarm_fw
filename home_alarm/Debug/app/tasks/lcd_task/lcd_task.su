@@ -1,0 +1,5 @@
+../app/tasks/lcd_task/lcd_task.c:37:6:lcd_task	40	static
+../app/tasks/lcd_task/lcd_task.c:60:6:i2c_write	16	static
+../app/tasks/lcd_task/lcd_task.c:67:6:i2c_read	32	static
+../app/tasks/lcd_task/lcd_task.c:75:6:i2c_delay	0	static
+../app/tasks/lcd_task/lcd_task.c:24:6:lcd_task_create	16	static

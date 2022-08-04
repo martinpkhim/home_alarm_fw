@@ -1,0 +1,2 @@
+../app/tasks/gsm_task/gsm_task.c:27:6:gsm_task	8	static
+../app/tasks/gsm_task/gsm_task.c:14:6:gsm_task_create	16	static

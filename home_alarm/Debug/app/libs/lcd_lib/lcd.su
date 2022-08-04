@@ -1,0 +1,5 @@
+../app/libs/lcd_lib/lcd.c:112:13:LCD_send	24	static
+../app/libs/lcd_lib/lcd.c:47:6:LCD_I2C_init	0	static
+../app/libs/lcd_lib/lcd.c:56:6:LCD_init	16	static
+../app/libs/lcd_lib/lcd.c:78:6:LCD_write	32	static
+../app/libs/lcd_lib/lcd.c:99:6:LCD_clear	16	static

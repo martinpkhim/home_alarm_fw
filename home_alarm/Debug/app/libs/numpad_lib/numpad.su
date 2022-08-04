@@ -1,0 +1,2 @@
+../app/libs/numpad_lib/numpad.c:27:6:Numpad_init	16	static
+../app/libs/numpad_lib/numpad.c:89:6:Numpad_scan	32	static

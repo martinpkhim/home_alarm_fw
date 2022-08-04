@@ -1,0 +1,2 @@
+../app/tasks/core_tasks/uart_task/uart_task.c:28:6:uart_task	8	static
+../app/tasks/core_tasks/uart_task/uart_task.c:15:6:uart_task_create	16	static
