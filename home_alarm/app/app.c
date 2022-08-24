@@ -9,9 +9,18 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "init_task.h"
+#include "config.h"
+#include "stm32l1xx.h"
 
 void app_main()
 {
+
+	spi_interface_init();
+	config_load();
+	if(config.tel_num[0] != '+')
+	{
+		config_init();
+	}
 
 	init_task_create();
 
@@ -20,6 +29,6 @@ void app_main()
 	/*Should not reach here*/
 	while(1)
 	{
-
+		__NOP();
 	}
 }

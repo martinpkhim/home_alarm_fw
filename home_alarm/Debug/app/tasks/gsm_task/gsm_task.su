@@ -1,2 +1,5 @@
-../app/tasks/gsm_task/gsm_task.c:27:6:gsm_task	8	static
-../app/tasks/gsm_task/gsm_task.c:14:6:gsm_task_create	16	static
+../app/tasks/gsm_task/gsm_task.c:158:6:delay_gsm	0	static
+../app/tasks/gsm_task/gsm_task.c:47:6:gsm_task	16	static
+../app/tasks/gsm_task/gsm_task.c:145:6:powerkey_switch	8	static
+../app/tasks/gsm_task/gsm_task.c:153:6:send_data	8	static
+../app/tasks/gsm_task/gsm_task.c:34:6:gsm_task_create	16	static

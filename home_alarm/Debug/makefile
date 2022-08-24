@@ -18,6 +18,10 @@ RM := rm -rf
 -include app/tasks/core_tasks/init_task/subdir.mk
 -include app/libs/numpad_lib/subdir.mk
 -include app/libs/lcd_lib/subdir.mk
+-include app/libs/flash_lib/subdir.mk
+-include app/libs/config_lib/subdir.mk
+-include app/libs/circbuffer_lib/subdir.mk
+-include app/libs/M66_lib/subdir.mk
 -include app/interface/subdir.mk
 -include app/subdir.mk
 -include Third_party/FreeRTOS/portable/MemMang/subdir.mk
@@ -66,6 +70,12 @@ default.size.stdout \
 OBJDUMP_LIST += \
 home_alarm.list \
 
+OBJCOPY_HEX += \
+home_alarm.hex \
+
+OBJCOPY_BIN += \
+home_alarm.bin \
+
 
 # All Target
 all: main-build
@@ -74,8 +84,8 @@ all: main-build
 main-build: home_alarm.elf secondary-outputs
 
 # Tool invocations
-home_alarm.elf home_alarm.map: $(OBJS) $(USER_OBJS) C:\Users\papai\Documents\cubeide\alarm_workspace\home_alarm\STM32L152C6TXA_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "home_alarm.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\papai\Documents\cubeide\alarm_workspace\home_alarm\STM32L152C6TXA_FLASH.ld" --specs=nosys.specs -Wl,-Map="home_alarm.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+home_alarm.elf home_alarm.map: $(OBJS) $(USER_OBJS) C:\repos\private\FW\home_alarm_fw\home_alarm\STM32L152C6TXA_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "home_alarm.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\repos\private\FW\home_alarm_fw\home_alarm\STM32L152C6TXA_FLASH.ld" --specs=nosys.specs -Wl,-Map="home_alarm.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -89,12 +99,22 @@ home_alarm.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+home_alarm.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "home_alarm.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
+home_alarm.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "home_alarm.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) default.size.stdout home_alarm.elf home_alarm.list home_alarm.map
+	-$(RM) default.size.stdout home_alarm.bin home_alarm.elf home_alarm.hex home_alarm.list home_alarm.map
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

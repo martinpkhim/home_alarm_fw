@@ -1,15 +1,15 @@
 app/tasks/lcd_task/lcd_task.o: ../app/tasks/lcd_task/lcd_task.c \
  ../app/tasks/lcd_task/lcd_task.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/FreeRTOS.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/FreeRTOSConfig.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/projdefs.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/portable.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/deprecated_definitions.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/portable/GCC/ARM_CM3/portmacro.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/mpu_wrappers.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/task.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/list.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/app/libs/lcd_lib/lcd.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/FreeRTOS.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/FreeRTOSConfig.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/projdefs.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/portable.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/deprecated_definitions.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/portable/GCC/ARM_CM3/portmacro.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/mpu_wrappers.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/task.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/list.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/lcd_lib/lcd.h \
  ../Core/Inc/i2c.h ../Core/Inc/main.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h \
  ../Core/Inc/stm32l1xx_hal_conf.h \
@@ -42,20 +42,22 @@ app/tasks/lcd_task/lcd_task.o: ../app/tasks/lcd_task/lcd_task.c \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim_ex.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_exti.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/app/interface/interface.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/queue.h \
- C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/task.h
+ C:/repos/private/FW/home_alarm_fw/home_alarm/app/interface/interface.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/task.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/semphr.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.h
 ../app/tasks/lcd_task/lcd_task.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/FreeRTOS.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/FreeRTOSConfig.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/projdefs.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/portable.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/deprecated_definitions.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/portable/GCC/ARM_CM3/portmacro.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/mpu_wrappers.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/task.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/list.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/app/libs/lcd_lib/lcd.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/FreeRTOS.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/FreeRTOSConfig.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/projdefs.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/portable.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/deprecated_definitions.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/portable/GCC/ARM_CM3/portmacro.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/mpu_wrappers.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/task.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/list.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/lcd_lib/lcd.h:
 ../Core/Inc/i2c.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h:
@@ -89,6 +91,8 @@ C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/app/libs/lcd_lib/lcd
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim_ex.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_exti.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/app/interface/interface.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/queue.h:
-C:/Users/papai/Documents/cubeide/alarm_workspace/home_alarm/Third_party/FreeRTOS/include/task.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/app/interface/interface.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/task.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/semphr.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.h:

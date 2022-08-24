@@ -50,8 +50,15 @@ void lcd_task(void * params)
 		lcd_data data = {0};
 		xQueueReceive(lcd_queue, (void*)&data, pdMS_TO_TICKS(portMAX_DELAY));
 		taskENTER_CRITICAL();
-		LCD_clear();
+		if(data.clr)
+		{
+			LCD_clear();
+		}
 		LCD_write(data.text, strlen(data.text));
+		if(data.crlf)
+		{
+			LCD_next_line();
+		}
 		taskEXIT_CRITICAL();
 	}
 }

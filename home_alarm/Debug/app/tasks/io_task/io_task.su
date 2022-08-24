@@ -1,3 +1,2 @@
-../app/tasks/io_task/io_task.c:31:6:io_task	32	static
-../app/tasks/io_task/io_task.c:18:6:io_task_create	16	static
-../app/tasks/io_task/io_task.c:63:6:HAL_GPIO_EXTI_Callback	0	static
+../app/tasks/io_task/io_task.c:50:6:io_task	40	static
+../app/tasks/io_task/io_task.c:37:6:io_task_create	16	static

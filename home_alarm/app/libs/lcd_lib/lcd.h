@@ -24,5 +24,6 @@ bool LCD_I2C_init(LCD_dev * fp_struct);
 bool LCD_init();
 bool LCD_write(char * text, uint8_t len);
 bool LCD_clear();
+bool LCD_next_line();
 
 #endif /* LCD_H_ */

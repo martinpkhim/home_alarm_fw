@@ -16,6 +16,7 @@
 #define	LCD_CMD_SET_ENTRY			(0x28)
 #define	LCD_CMD_CURSOR_BLINK		(0x0F)
 #define	LCD_CMD_R_SHIFT				(0x14)
+#define	LCD_CMD_NEXT_LINE			(0xC0)
 
 typedef union LCD_data
 {
@@ -106,6 +107,13 @@ bool LCD_clear()
 	res &= LCD_send(LCD_CMD_RETURN, LCD_CMD);
 	LCD_local_dev->delay(10);
 
+	return res;
+}
+
+bool LCD_next_line()
+{
+	bool res = true;
+	res &= LCD_send(LCD_CMD_NEXT_LINE, LCD_CMD);
 	return res;
 }
 

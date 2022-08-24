@@ -63,6 +63,8 @@ void numpad_task(void * params)
 
 	while(1)
 	{
+		xSemaphoreTake(numpad_mutex, pdMS_TO_TICKS(portMAX_DELAY));
+
 		/*Keep scanning the numpad for keypresses*/
 		key = Numpad_scan();
 		if(key != 'X')
@@ -71,7 +73,10 @@ void numpad_task(void * params)
 			data.text[0] = key;
 			/*Send the key to the LCD task*/
 			xQueueSend(lcd_queue, (void*)&data, pdMS_TO_TICKS(100));
+			/*Send the key to the manager task as well*/
+			xQueueSend(key_queue, (void*)&key, pdMS_TO_TICKS(100));
 		}
+		xSemaphoreGive(numpad_mutex);
 		vTaskDelay(pdMS_TO_TICKS(100));
 	}
 }
