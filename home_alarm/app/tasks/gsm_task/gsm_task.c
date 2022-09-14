@@ -122,7 +122,8 @@ void gsm_task(void * params)
 
 				if(!config_state)
 				{
-					gsm_sm = GSM_CHECK_CREDENTIALS;
+					M66_set_bt_state(0);
+					gsm_sm = GSM_MODULE_START;
 				}
 
 				break;
@@ -136,7 +137,7 @@ void gsm_task(void * params)
 				M66_check_pin(&status);
 				if(!status)
 				{
-					//M66_enter_pin(1234);
+					//M66_enter_pin(config.pincode);
 				}
 
 				/*Set text mode for SMS*/

@@ -1,6 +1,6 @@
 ../app/tasks/gsm_task/gsm_task.c:55:6:gsm_task	160	static
-../app/tasks/gsm_task/gsm_task.c:220:6:delay_gsm	0	static
-../app/tasks/gsm_task/gsm_task.c:207:6:powerkey_switch	8	static
-../app/tasks/gsm_task/gsm_task.c:215:6:send_data	8	static
+../app/tasks/gsm_task/gsm_task.c:221:6:delay_gsm	0	static
+../app/tasks/gsm_task/gsm_task.c:208:6:powerkey_switch	8	static
+../app/tasks/gsm_task/gsm_task.c:216:6:send_data	8	static
 ../app/tasks/gsm_task/gsm_task.c:42:6:gsm_task_create	16	static
-../app/tasks/gsm_task/gsm_task.c:226:6:HAL_UART_RxCpltCallback	8	static,ignoring_inline_asm
+../app/tasks/gsm_task/gsm_task.c:227:6:HAL_UART_RxCpltCallback	8	static,ignoring_inline_asm

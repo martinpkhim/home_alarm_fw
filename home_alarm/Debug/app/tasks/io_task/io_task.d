@@ -35,6 +35,7 @@ app/tasks/io_task/io_task.o: ../app/tasks/io_task/io_task.c \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_cortex.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc_ex.h \
+ ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_crc.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ex.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.h \
@@ -84,6 +85,7 @@ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_cortex.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc_ex.h:
+../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_crc.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ex.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.h:

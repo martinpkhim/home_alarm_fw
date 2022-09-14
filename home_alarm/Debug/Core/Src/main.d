@@ -19,6 +19,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_cortex.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc_ex.h \
+ ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_crc.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ex.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.h \
@@ -30,9 +31,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim_ex.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_exti.h \
- ../Core/Inc/adc.h ../Core/Inc/main.h ../Core/Inc/dma.h ../Core/Inc/i2c.h \
- ../Core/Inc/spi.h ../Core/Inc/tim.h ../Core/Inc/usart.h \
- ../Core/Inc/gpio.h \
+ ../Core/Inc/adc.h ../Core/Inc/main.h ../Core/Inc/crc.h ../Core/Inc/dma.h \
+ ../Core/Inc/i2c.h ../Core/Inc/spi.h ../Core/Inc/tim.h \
+ ../Core/Inc/usart.h ../Core/Inc/gpio.h \
  C:/repos/private/FW/home_alarm_fw/home_alarm/app/app.h
 ../Core/Inc/main.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h:
@@ -55,6 +56,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_cortex.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc_ex.h:
+../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_crc.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ex.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.h:
@@ -68,6 +70,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_exti.h:
 ../Core/Inc/adc.h:
 ../Core/Inc/main.h:
+../Core/Inc/crc.h:
 ../Core/Inc/dma.h:
 ../Core/Inc/i2c.h:
 ../Core/Inc/spi.h:

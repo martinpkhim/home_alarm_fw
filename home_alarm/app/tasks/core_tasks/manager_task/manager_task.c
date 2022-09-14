@@ -32,6 +32,8 @@ typedef enum sys_states
 
 sys_states system_state = STATE_STARTUP;
 
+static bool state_change_f = false;
+
 void buzzer_sound();
 void manager_task(void * params);
 static void send_text(lcd_data * data);
@@ -59,9 +61,32 @@ void manager_task(void * params)
 	char			disarmed_str[]			= "DISARMED";
 	char			alarm_str[]				= "ALARM";
 	char			config_str[]			= "CONFIG";
+	TickType_t		start_time				= 0;
+
+	char 			key						= '\0';
+	char 			code[5] 				= {0};
+	bool			key_pressed				= false;
 
 	while(1)
 	{
+
+		sscanf(key_buffer, "*%[^#]#", code);
+		if(xQueueReceive(key_queue, (void*)&key, pdMS_TO_TICKS(100)) == pdTRUE)
+		{
+			key_pressed = true;
+
+			key_buffer[key_cnt] = key;
+			key_cnt++;
+
+			if(key_cnt >= MAX_KEY_CNT)
+			{
+				key_cnt = 0;
+				memset(key_buffer, '\0', sizeof(key_buffer));
+				state_change_f = true;
+			}
+		}
+
+
 		/*Collect data from the system and control the state*/
 		switch(system_state)
 		{
@@ -85,11 +110,7 @@ void manager_task(void * params)
 			case STATE_INIT:
 			{
 				/*Notify user of disarmed state, wait for arming*/
-				memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
-				memcpy(lcd_data.text, disarmed_str, strlen(disarmed_str));
-				lcd_data.crlf = true;
-				lcd_data.led  = false;
-				xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
+				state_change_f = true;
 
 				xSemaphoreGive(numpad_mutex);
 
@@ -99,40 +120,34 @@ void manager_task(void * params)
 			}
 			case STATE_DISARMED:
 			{
+
+				if(state_change_f)
+				{
+					state_change_f = false;
+
+					/*Notify user of disarmed state, wait for arming*/
+					memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
+					memcpy(lcd_data.text, disarmed_str, strlen(disarmed_str));
+					lcd_data.crlf = true;
+					xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
+				}
+
 				/*Menu system here for configuration*/
 				/* *0# puts the device in config mode*/
 				/* *password# arms the device*/
-				char key;
-				char code[5] = {0};
-				sscanf(key_buffer, "*%[^#]#", code);
-				if(xQueueReceive(key_queue, (void*)&key, pdMS_TO_TICKS(100)) == pdTRUE)
+				if(key_pressed)
 				{
-					key_buffer[key_cnt] = key;
-					key_cnt++;
+					key_pressed = false;
 
-					if(key_cnt >= MAX_KEY_CNT)
+					sscanf(key_buffer, "*%[^#]#", code);
+
+					if((atoi(code) == config.password) && (config.password != 0))
 					{
 						key_cnt = 0;
 						memset(key_buffer, '\0', sizeof(key_buffer));
 
 						/*Notify user of disarmed state, wait for arming*/
-						memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
-						memcpy(lcd_data.text, disarmed_str, strlen(disarmed_str));
-						lcd_data.crlf = true;
-						xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
-
-					}
-					else if((atoi(code) == config.password) && (config.password != 0))
-					{
-						key_cnt = 0;
-						memset(key_buffer, '\0', sizeof(key_buffer));
-
-						/*Notify user of disarmed state, wait for arming*/
-						memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
-						memcpy(lcd_data.text, armed_str, strlen(armed_str));
-						lcd_data.crlf = true;
-						lcd_data.led  = true;
-						xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
+						state_change_f = true;
 
 						buzzer_sound();
 
@@ -143,14 +158,12 @@ void manager_task(void * params)
 					}
 					else if(strcmp(key_buffer, "*0#") == 0)
 					{
+						key_cnt = 0;
+						memset(key_buffer, '\0', sizeof(key_buffer));
+
 						/*Config mode*/
 						/*Notify user of disarmed state, wait for arming*/
-						memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
-						memcpy(lcd_data.text, config_str, strlen(config_str));
-						lcd_data.crlf = false;
-						lcd_data.led  = true;
-						xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
-
+						state_change_f = true;
 						bool config_state = true;
 						xQueueSend(config_queue, (void*)&config_state, pdMS_TO_TICKS(100));
 
@@ -163,38 +176,30 @@ void manager_task(void * params)
 			case STATE_ARMED:
 			{
 
-				/* *password# disarms the device*/
-				char key;
-				char code[5] = {0};
-				sscanf(key_buffer, "*%[^#]#", code);
-				if(xQueueReceive(key_queue, (void*)&key, pdMS_TO_TICKS(100)) == pdTRUE)
+				if(state_change_f)
 				{
-					key_buffer[key_cnt] = key;
-					key_cnt++;
+					state_change_f = false;
 
-					if(key_cnt >= MAX_KEY_CNT)
+					memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
+					memcpy(lcd_data.text, armed_str, strlen(armed_str));
+					lcd_data.crlf = true;
+					xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
+				}
+
+				/* *password# disarms the device*/
+				if(key_pressed)
+				{
+					key_pressed = false;
+
+					sscanf(key_buffer, "*%[^#]#", code);
+
+					if((atoi(code) == config.password) && (config.password != 0))
 					{
 						key_cnt = 0;
 						memset(key_buffer, '\0', sizeof(key_buffer));
 
 						/*Notify user of disarmed state, wait for arming*/
-						memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
-						memcpy(lcd_data.text, armed_str, strlen(armed_str));
-						lcd_data.crlf = true;
-						xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
-
-					}
-					else if((atoi(code) == config.password) && (config.password != 0))
-					{
-						key_cnt = 0;
-						memset(key_buffer, '\0', sizeof(key_buffer));
-
-						/*Notify user of disarmed state, wait for arming*/
-						memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
-						memcpy(lcd_data.text, disarmed_str, strlen(disarmed_str));
-						lcd_data.crlf = true;
-						lcd_data.led  = false;
-						xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
+						state_change_f = true;
 
 						buzzer_sound();
 
@@ -208,11 +213,8 @@ void manager_task(void * params)
 					/*If any of the intputs are high*/
 					if((io_data.io_state & config.sensor_mask) != 0)
 					{
-						/*Notify user of disarmed state, wait for arming*/
-						memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
-						memcpy(lcd_data.text, alarm_str, strlen(alarm_str));
-						lcd_data.crlf = true;
-						xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
+						/*Notify user of alert state, wait for arming*/
+						state_change_f = true;
 
 						/*Create a message containing the alert info and send it to the gsm task*/
 						msg_data sms_data = {0};
@@ -236,39 +238,34 @@ void manager_task(void * params)
 			}
 			case STATE_ALERT:
 			{
+
+				if(state_change_f)
+				{
+					state_change_f = false;
+
+					memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
+					memcpy(lcd_data.text, alarm_str, strlen(alarm_str));
+					lcd_data.crlf = true;
+					xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
+				}
+
 				/*Wait for user action to return to disarmed state*/
 
 				/* *password# disarms the device*/
-				char key;
-				char code[5] = {0};
-				sscanf(key_buffer, "*%[^#]#", code);
-				if(xQueueReceive(key_queue, (void*)&key, pdMS_TO_TICKS(100)) == pdTRUE)
+
+				if(key_pressed)
 				{
-					key_buffer[key_cnt] = key;
-					key_cnt++;
+					key_pressed = false;
 
-					if(key_cnt >= MAX_KEY_CNT)
-					{
-						key_cnt = 0;
-						memset(key_buffer, '\0', sizeof(key_buffer));
+					sscanf(key_buffer, "*%[^#]#", code);
 
-						/*Notify user of disarmed state, wait for arming*/
-						memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
-						memcpy(lcd_data.text, alarm_str, strlen(alarm_str));
-						lcd_data.crlf = true;
-						xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
-
-					}
-					else if((atoi(code) == config.password) && (config.password != 0))
+					if((atoi(code) == config.password) && (config.password != 0))
 					{
 						key_cnt = 0;
 						memset(key_buffer, '\0', sizeof(key_buffer));
 
 						/*Notify user of disarmed state*/
-						memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
-						memcpy(lcd_data.text, disarmed_str, 9);
-						lcd_data.crlf = true;
-						xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
+						state_change_f = true;
 
 						buzzer_sound();
 
@@ -280,6 +277,17 @@ void manager_task(void * params)
 			}
 			case STATE_CONFIG:
 			{
+				if(state_change_f)
+				{
+					state_change_f = false;
+
+					memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
+					memcpy(lcd_data.text, config_str, strlen(config_str));
+					lcd_data.crlf = true;
+					lcd_data.led  = true;
+					xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
+				}
+
 				msg_data msg_data_buf = {0};
 				if(xQueueReceive(msg_queue, (void*)&msg_data_buf, pdMS_TO_TICKS(100)) == pdTRUE)
 				{
@@ -313,10 +321,7 @@ void manager_task(void * params)
 							memset(key_buffer, '\0', sizeof(key_buffer));
 
 							/*Notify user of disarmed state, wait for arming*/
-							memset(lcd_data.text, '\0', LCD_BUFF_MAX_SIZE);
-							memcpy(lcd_data.text, disarmed_str, strlen(disarmed_str));
-							lcd_data.crlf = true;
-							xQueueSend(lcd_queue, (void*)&lcd_data, pdMS_TO_TICKS(100));
+							state_change_f = true;
 
 							bool config_state = false;
 							xQueueSend(config_queue, (void*)&config_state, pdMS_TO_TICKS(100));
@@ -334,6 +339,27 @@ void manager_task(void * params)
 					}
 
 				}
+
+				if(key_pressed)
+				{
+					key_pressed = false;
+
+					if(strcmp(key_buffer, "*0#") == 0)
+					{
+						key_cnt = 0;
+						memset(key_buffer, '\0', sizeof(key_buffer));
+
+						/*Config mode*/
+						/*Notify user of disarmed state, wait for arming*/
+						state_change_f 		= true;
+						bool config_state 	= true;
+						xQueueSend(config_queue, (void*)&config_state, pdMS_TO_TICKS(100));
+
+						state_change_f 	= true;
+						system_state 	= STATE_DISARMED;
+					}
+				}
+
 				break;
 			}
 		}

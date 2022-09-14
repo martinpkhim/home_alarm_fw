@@ -38,8 +38,7 @@ void init_task(void * params)
 	while(1)
 	{
 		taskENTER_CRITICAL();
-		config_load();
-		if(config.tel_num[0] != '+')
+		if(!config_load())
 		{
 			config_init();
 		}

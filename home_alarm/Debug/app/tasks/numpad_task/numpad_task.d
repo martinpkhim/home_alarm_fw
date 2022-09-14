@@ -32,6 +32,7 @@ app/tasks/numpad_task/numpad_task.o: \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_cortex.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc_ex.h \
+ ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_crc.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ex.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.h \
@@ -82,6 +83,7 @@ C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/numpad_lib/numpad.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_cortex.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc_ex.h:
+../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_crc.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ex.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.h:
