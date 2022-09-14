@@ -41,7 +41,14 @@ app/tasks/gsm_task/gsm_task.o: ../app/tasks/gsm_task/gsm_task.c \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim_ex.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h \
  ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_exti.h \
- ../Core/Inc/usart.h ../Core/Inc/main.h
+ ../Core/Inc/usart.h ../Core/Inc/main.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/circbuffer_lib/circbuffer.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/app/interface/interface.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/task.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/semphr.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/config_lib/config.h
 ../app/tasks/gsm_task/gsm_task.h:
 C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/FreeRTOS.h:
 C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/FreeRTOSConfig.h:
@@ -87,3 +94,10 @@ C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/M66_lib/M66.h:
 ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_exti.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/main.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/circbuffer_lib/circbuffer.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/app/interface/interface.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/task.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/semphr.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/config_lib/config.h:

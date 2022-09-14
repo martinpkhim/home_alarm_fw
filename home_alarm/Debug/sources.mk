@@ -34,12 +34,10 @@ app/interface \
 app/libs/M66_lib \
 app/libs/circbuffer_lib \
 app/libs/config_lib \
-app/libs/flash_lib \
 app/libs/lcd_lib \
 app/libs/numpad_lib \
 app/tasks/core_tasks/init_task \
 app/tasks/core_tasks/manager_task \
-app/tasks/core_tasks/uart_task \
 app/tasks/gsm_task \
 app/tasks/io_task \
 app/tasks/lcd_task \

@@ -20,7 +20,9 @@ app/tasks/core_tasks/init_task/init_task.o: \
  C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.h \
  C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/task.h \
  C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/semphr.h \
- C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.h
+ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/flash_lib/flash.h \
+ C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/config_lib/config.h
 ../app/tasks/core_tasks/init_task/init_task.h:
 C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/FreeRTOS.h:
 C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/FreeRTOSConfig.h:
@@ -42,3 +44,5 @@ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.
 C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/task.h:
 C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/semphr.h:
 C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/queue.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/flash_lib/flash.h:
+C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/config_lib/config.h:

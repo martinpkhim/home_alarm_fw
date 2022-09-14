@@ -9,7 +9,6 @@ app/app.o: ../app/app.c ../app/app.h \
  C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/task.h \
  C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/list.h \
  C:/repos/private/FW/home_alarm_fw/home_alarm/app/tasks/core_tasks/init_task/init_task.h \
- C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/config_lib/config.h \
  ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h \
  ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l152xba.h \
  ../Drivers/CMSIS/Include/core_cm3.h \
@@ -52,7 +51,6 @@ C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/mpu_wr
 C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/task.h:
 C:/repos/private/FW/home_alarm_fw/home_alarm/Third_party/FreeRTOS/include/list.h:
 C:/repos/private/FW/home_alarm_fw/home_alarm/app/tasks/core_tasks/init_task/init_task.h:
-C:/repos/private/FW/home_alarm_fw/home_alarm/app/libs/config_lib/config.h:
 ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h:
 ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l152xba.h:
 ../Drivers/CMSIS/Include/core_cm3.h:

@@ -25,5 +25,6 @@ bool LCD_init();
 bool LCD_write(char * text, uint8_t len);
 bool LCD_clear();
 bool LCD_next_line();
+bool LCD_light_switch(bool state);
 
 #endif /* LCD_H_ */

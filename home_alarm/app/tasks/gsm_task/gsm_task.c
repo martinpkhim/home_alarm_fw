@@ -9,21 +9,29 @@
 #include "M66.h"
 #include "main.h"
 #include "usart.h"
+#include "circbuffer.h"
+#include "interface.h"
+#include "config.h"
 
 //TaskHandle_t gsm_task_h;
 
 typedef enum GSM_STATE
 {
-	GSM_MODULE_START = 0,
+	BT_CONFIGURE = 0,
+	BT_CONNECT,
+	BT_CONNECTED,
+	GSM_MODULE_START,
 	GSM_CHECK_CREDENTIALS,
 	GSM_CONNECT,
 	GSM_CONNECTED,
-	GSM_SEND,
 
 }GSM_STATE;
 
-GSM_STATE gsm_sm = GSM_MODULE_START;
-m66_ctrl m66_ctrl_struct = {0};
+
+static GSM_STATE gsm_sm = GSM_MODULE_START;
+static m66_ctrl m66_ctrl_struct = {0};
+static bool config_state = false;
+static uint8_t data_byte = 0;
 
 void powerkey_switch(bool state);
 bool send_data(uint8_t * data, uint16_t len);
@@ -52,14 +60,71 @@ void gsm_task(void * params)
 	m66_ctrl_struct.delay = delay_gsm;
 	M66_ctrl_init(&m66_ctrl_struct);
 
+	taskENTER_CRITICAL();
+	HAL_StatusTypeDef status = HAL_ERROR;
+	status = HAL_UART_Receive_DMA(&huart2, &data_byte, 1);
+	taskEXIT_CRITICAL();
+
 	while(1)
 	{
+
+		if(xQueueReceive(config_queue, (void*)&config_state, pdMS_TO_TICKS(100)) == pdTRUE)
+		{
+			gsm_sm = GSM_MODULE_START;
+		}
+
 		switch(gsm_sm)
 		{
 			case GSM_MODULE_START:
 			{
-				M66_hw_reset();
-				gsm_sm = GSM_CHECK_CREDENTIALS;
+				if(M66_at() != CMD_OK)
+				{
+					M66_hw_reset();
+				}
+				/*Go to the next state based on the device mode*/
+				if(config_state)
+				{
+					gsm_sm = BT_CONFIGURE;
+				}
+				else
+				{
+					gsm_sm = GSM_CHECK_CREDENTIALS;
+				}
+				break;
+			}
+			case BT_CONFIGURE:
+			{
+				/*Enable bluetooth*/
+				M66_set_bt_state(1);
+				/*Set bluetooth local name*/
+				M66_set_bt_name("ALARM");
+				/*Set the visibility of the bluetooth device*/
+				M66_set_bt_visibility(1);
+
+				gsm_sm = BT_CONNECT;
+
+				break;
+			}
+			case BT_CONNECT:
+			{
+
+				gsm_sm = BT_CONNECTED;
+				break;
+			}
+			case BT_CONNECTED:
+			{
+				msg_data rsp_msg = {0};
+				if(xQueueReceive(rsp_msg_queue, (void*)&rsp_msg, pdMS_TO_TICKS(100)) == pdTRUE)
+				{
+					/*If data arrives send it through BT*/
+					M66_send_bt_data(rsp_msg.text);
+				}
+
+				if(!config_state)
+				{
+					gsm_sm = GSM_CHECK_CREDENTIALS;
+				}
+
 				break;
 			}
 			case GSM_CHECK_CREDENTIALS:
@@ -91,27 +156,25 @@ void gsm_task(void * params)
 				/*Select the operator based on the mccmnc*/
 				M66_select_operator(21670);
 
-				/*Enable bluetooth*/
-				M66_set_bt_state(1);
-				/*Set bluetooth local name*/
-				M66_set_bt_name("ALARM");
-				/*Set the visibility of the bluetooth device*/
-				M66_set_bt_visibility(1);
-
 				uint8_t netstat = 0;
-				do
-				{
-					/*Query the network status*/
-					M66_query_network_status(&netstat);
-					vTaskDelay(pdMS_TO_TICKS(500));
-				}while((netstat != 1) || (netstat != 5));
+				M66_query_network_status(&netstat);
 
-				gsm_sm = GSM_CONNECTED;
+				if((netstat == 1) || (netstat == 5))
+				{
+					gsm_sm = GSM_CONNECTED;
+				}
 
 				break;
 			}
 			case GSM_CONNECTED:
 			{
+
+				msg_data sms_msg = {0};
+				if(xQueueReceive(sms_queue, (void*)&sms_msg, pdMS_TO_TICKS(100)) == pdTRUE)
+				{
+					M66_send_sms(config.tel_num, sms_msg.text);
+				}
+
 				uint8_t netstat = 0;
 				M66_query_network_status(&netstat);
 
@@ -122,13 +185,6 @@ void gsm_task(void * params)
 
 				break;
 			}
-			case GSM_SEND:
-			{
-				M66_send_sms("+36702047619", "HELLO BABE");
-
-				gsm_sm = GSM_CONNECTED;
-				break;
-			}
 			default:
 			{
 				gsm_sm = GSM_MODULE_START;
@@ -136,8 +192,14 @@ void gsm_task(void * params)
 			}
 		}
 
+
+		if(!circbuffer_is_emtpy())
+		{
+			M66_check_URC();
+		}
+
 		/*Collect data from the system and control the state*/
-		vTaskDelay(pdMS_TO_TICKS(1000));
+		vTaskDelay(pdMS_TO_TICKS(500));
 	}
 }
 
@@ -159,5 +221,13 @@ void delay_gsm(uint32_t delay_ms)
 {
 	vTaskDelay(pdMS_TO_TICKS(delay_ms));
 	//HAL_Delay(delay);
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	UBaseType_t uxSavedInterruptStatus;
+	uxSavedInterruptStatus = taskENTER_CRITICAL_FROM_ISR();
+	circbuffer_insert(&data_byte, 1);
+	taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus);
 }
 

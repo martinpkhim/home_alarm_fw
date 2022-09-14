@@ -13,6 +13,8 @@
 #include "lcd_task.h"
 #include "numpad_task.h"
 #include "interface.h"
+#include "flash.h"
+#include "config.h"
 
 //TaskHandle_t init_task_h;
 
@@ -35,11 +37,19 @@ void init_task(void * params)
 {
 	while(1)
 	{
+		taskENTER_CRITICAL();
+		config_load();
+		if(config.tel_num[0] != '+')
+		{
+			config_init();
+		}
+		taskEXIT_CRITICAL();
+
 		interface_init();
 
 		/*Call the initialising function of each task*/
 		manager_task_create();
-		uart_task_create();
+		//uart_task_create();
 		gsm_task_create();
 		io_task_create();
 		lcd_task_create();

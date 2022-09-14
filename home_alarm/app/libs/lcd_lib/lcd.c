@@ -166,4 +166,17 @@ static bool LCD_send(uint8_t cmd, LCD_data_mode mode)
 	return res;
 }
 
+bool LCD_light_switch(bool state)
+{
+	bool res				 	= true;
+	LCD_data send_cmd 			= {0};
+	send_cmd.data_bits.LED 		= state;
+	send_cmd.data_bits.RS 		= 0;
+	send_cmd.data_bits.RW 		= 0;
+
+	res &= LCD_local_dev->i2c_write(I2C_ADDR, &send_cmd.data_byte, 1);
+
+	return res;
+}
+
 

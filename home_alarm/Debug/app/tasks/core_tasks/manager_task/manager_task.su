@@ -1,3 +1,3 @@
-../app/tasks/core_tasks/manager_task/manager_task.c:35:6:manager_task_create	16	static
-../app/tasks/core_tasks/manager_task/manager_task.c:235:6:buzzer_sound	16	static
-../app/tasks/core_tasks/manager_task/manager_task.c:48:6:manager_task	88	static
+../app/tasks/core_tasks/manager_task/manager_task.c:39:6:manager_task_create	16	static
+../app/tasks/core_tasks/manager_task/manager_task.c:345:6:buzzer_sound	16	static
+../app/tasks/core_tasks/manager_task/manager_task.c:52:6:manager_task	448	static

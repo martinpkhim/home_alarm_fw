@@ -1,2 +1,2 @@
-../app/tasks/core_tasks/init_task/init_task.c:34:6:init_task	8	static
-../app/tasks/core_tasks/init_task/init_task.c:21:6:init_task_create	16	static
+../app/tasks/core_tasks/init_task/init_task.c:36:6:init_task	8	static
+../app/tasks/core_tasks/init_task/init_task.c:23:6:init_task_create	16	static

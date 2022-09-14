@@ -59,6 +59,9 @@ void lcd_task(void * params)
 		{
 			LCD_next_line();
 		}
+
+		LCD_light_switch(data.led);
+
 		taskEXIT_CRITICAL();
 	}
 }

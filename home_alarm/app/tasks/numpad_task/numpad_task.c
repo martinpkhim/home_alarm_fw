@@ -69,8 +69,9 @@ void numpad_task(void * params)
 		key = Numpad_scan();
 		if(key != 'X')
 		{
-			lcd_data data = {0};
-			data.text[0] = key;
+			lcd_data data 	= {0};
+			data.text[0] 	= key;
+			data.led		= true;
 			/*Send the key to the LCD task*/
 			xQueueSend(lcd_queue, (void*)&data, pdMS_TO_TICKS(100));
 			/*Send the key to the manager task as well*/
